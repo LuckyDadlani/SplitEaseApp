@@ -1,31 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Text, Title } from 'react-native-paper';
+import { Title } from 'react-native-paper';
+import { ExpenseContext } from '../context/ExpenseContext';
+import EditableListItem from './EditableList';
 
 const PeopleList = ({ people }) => {
+  const { updatePerson, deletePerson, theme } = useContext(ExpenseContext);
+  
   if (people.length === 0) return null;
 
   return (
     <View style={styles.container}>
-      <Title>People</Title>
+      <Title style={{ color: theme.colors.text }}>People</Title>
       {people.map((person) => (
-        <Card key={person.id} style={styles.card}>
-          <Card.Content>
-            <Text>{person.name}</Text>
-          </Card.Content>
-        </Card>
+        <EditableListItem 
+          key={person.id} 
+          item={person} 
+          textKey="name"
+          onUpdate={updatePerson}
+          onDelete={deletePerson}
+        />
       ))}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginVertical: 16,
-  },
-  card: {
-    marginVertical: 4,
-  },
+  container: { marginVertical: 16 },
 });
 
 export default PeopleList;

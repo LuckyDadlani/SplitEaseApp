@@ -1,7 +1,6 @@
 export const settleExpenses = (people, expenses) => {
   if (people.length === 0 || expenses.length === 0) return [];
 
-  // Calculate net balance for each person
   const balances = {};
   people.forEach((p) => (balances[p.id] = 0));
 
@@ -13,7 +12,6 @@ export const settleExpenses = (people, expenses) => {
     balances[exp.paidBy] += exp.amount;
   });
 
-  // Separate creditors and debtors
   const creditors = [];
   const debtors = [];
 
